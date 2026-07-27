@@ -5,7 +5,7 @@
 Open the app, and you're working immediately with a full set of sample deals. Add your own listings, leads, rehab jobs, and properties — everything you type is saved right in your browser, on your device.
 
 > 🔗 **Live app:** `https://longizzorrex.github.io/REI-Hub/`
-> 📖 **Setup & Features Guide:** `https://LongizzorRex.github.io/guide.html`
+> 📖 **Setup & Features Guide:** `https://longizzorrex.github.io/REI-Hub/guide.html`
 
 ---
 
