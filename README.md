@@ -33,7 +33,7 @@ Stop typing listings in one at a time. Deal Finder answers the only question tha
 
 Rates, market trends, and parcel records need no setup at all: paste your license key and they work. Live listings use a **free data key that you create** (about two minutes, no credit card) — that's what keeps the subscription priced without a data markup. The app walks you through it.
 
-**→ [Subscribe to Live Data](https://planex.lemonsqueezy.com/checkout/buy/aba36df8-d6dc-4bee-b2f3-6df57e78b894)**
+**→ [Subscribe to Live Data](https://planex.lemonsqueezy.com/checkout/buy/841a30e8-82ed-4d5f-8c66-8f2269507145)**
 
 ---
 
