@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>REI Hub — The Setup &amp; Features Guide</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = { theme:{ extend:{ colors:{
+    ink:'var(--ink)', inksoft:'var(--inksoft)', sbgreen:'var(--sbgreen)', accent:'var(--accent)',
+    house:'var(--house)', uplift:'var(--uplift)', greenlight:'var(--greenlight)', gold:'var(--gold)',
+    cream:'var(--canvas)', ceramic:'var(--ceramic)', soft:'var(--soft)', card:'var(--card)',
+    hairline:'var(--hairline)', red:'var(--red)' },
+    fontFamily:{ sans:['Inter','Helvetica Neue','Arial','sans-serif'], serif:['Lora','Georgia','serif'], mono:['JetBrains Mono','ui-monospace','monospace'] } } } }
+</script>
+<style>
+  :root{
+    --canvas:#f2f0eb; --ceramic:#edebe9; --card:#ffffff; --soft:#f6f4ef;
+    --sbgreen:#006241; --accent:#00754A; --house:#1E3932; --uplift:#2b5148;
+    --greenlight:#d4e9e2; --gold:#cba258; --goldlight:#faf6ee;
+    --ink:rgba(0,0,0,0.87); --inksoft:rgba(0,0,0,0.58);
+    --hairline:#e7e7e7; --red:#c82014;
+    --cardshadow:0 0 0.5px rgba(0,0,0,0.14), 0 1px 1px rgba(0,0,0,0.24);
+    --navshadow:0 1px 3px rgba(0,0,0,0.1), 0 2px 2px rgba(0,0,0,0.06), 0 0 2px rgba(0,0,0,0.07);
+  }
+  [data-theme="dark"]{
+    --canvas:#13201b; --ceramic:#1a2723; --card:#1E3932; --soft:#24332e;
+    --sbgreen:#9ed9bf; --accent:#1f9a66; --house:#0d1c16; --uplift:#2b5148;
+    --greenlight:#2b5148; --gold:#d8b878; --goldlight:#26332c;
+    --ink:rgba(255,255,255,0.92); --inksoft:rgba(255,255,255,0.62);
+    --hairline:rgba(255,255,255,0.12); --red:#ef5b50;
+    --cardshadow:0 0 0.5px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.45);
+    --navshadow:0 1px 3px rgba(0,0,0,0.4);
+  }
+  html,body{ font-family:Inter,'Helvetica Neue',Arial,sans-serif; letter-spacing:-0.01em; }
+  body{ background:var(--canvas); color:var(--ink); }
+  .serif{ font-family:'Lora',Georgia,serif; letter-spacing:-0.01em; }
+  .card{ background:var(--card); border-radius:12px; box-shadow:var(--cardshadow); }
+  .soft{ background:var(--soft); border:1px solid var(--hairline); }
+  .band{ background:var(--house); color:#fff; }
+  .label{ text-transform:uppercase; font-size:11px; font-weight:700; letter-spacing:0.06em; color:var(--inksoft); }
+  .pill{ display:inline-flex; align-items:center; justify-content:center; gap:6px; border-radius:50px;
+    padding:7px 16px; font-size:13px; font-weight:600; letter-spacing:-0.01em; transition:all .2s ease;
+    cursor:pointer; border:1px solid transparent; line-height:1; white-space:nowrap; text-decoration:none; }
+  .pill:active{ transform:scale(0.95); }
+  .pill-sm{ padding:4px 12px; font-size:11px; }
+  .pill-green{ background:var(--accent); color:#fff; border-color:var(--accent); }
+  .pill-green:hover{ filter:brightness(0.93); }
+  .pill-outline{ background:var(--card); color:var(--accent); border-color:var(--accent); }
+  .pill-outline:hover{ background:var(--greenlight); }
+  .badge{ display:inline-flex; align-items:center; gap:5px; border-radius:50px; padding:4px 13px;
+    font-size:11px; font-weight:700; letter-spacing:0.02em; white-space:nowrap; max-width:100%; }
+  /* uniform tier tags */
+  .tier{ display:inline-flex; align-items:center; gap:5px; border-radius:50px; padding:3px 11px;
+    font-size:10.5px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; white-space:nowrap; }
+  .tier-free{ background:var(--gold); color:#3a2c0c; }
+  .tier-live{ background:var(--greenlight); color:var(--sbgreen); border:1px solid color-mix(in srgb, var(--sbgreen) 30%, transparent); }
+
+  h2.sec{ font-family:'Lora',Georgia,serif; font-weight:700; color:var(--sbgreen); font-size:26px; letter-spacing:-0.02em; }
+  h3.sub{ font-weight:700; color:var(--ink); font-size:16px; }
+  p, li{ color:var(--ink); line-height:1.65; }
+  .muted{ color:var(--inksoft); }
+  a.link{ color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+  a.link:hover{ border-bottom-color:var(--accent); }
+  code.inl{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:0.86em; background:var(--soft);
+    border:1px solid var(--hairline); border-radius:5px; padding:1px 6px; color:var(--sbgreen); }
+
+  table.tbl{ width:100%; border-collapse:collapse; font-size:13px; }
+  table.tbl th{ text-align:left; padding:10px 12px; background:var(--soft); color:var(--inksoft);
+    font-size:10px; text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--hairline); }
+  table.tbl td{ padding:10px 12px; border-bottom:1px solid var(--hairline); vertical-align:top; color:var(--ink); }
+  table.tbl tr:last-child td{ border-bottom:none; }
+  .yes{ color:var(--accent); font-weight:700; }
+  .no{ color:var(--inksoft); font-weight:600; }
+  .col-c{ text-align:center; white-space:nowrap; }
+
+  .toc a{ display:block; padding:5px 12px; border-radius:8px; font-size:13px; color:var(--inksoft); text-decoration:none; border-left:2px solid transparent; }
+  .toc a:hover{ color:var(--accent); background:var(--soft); }
+  .toc a.active{ color:var(--accent); background:var(--greenlight); border-left-color:var(--accent); font-weight:600; }
+  .toc a.ind{ padding-left:24px; font-size:12.5px; }
+
+  .note{ border-left:3px solid var(--gold); background:var(--goldlight); border-radius:0 10px 10px 0; }
+  .warn{ border-left:3px solid var(--red); background:color-mix(in srgb, var(--red) 7%, var(--card)); border-radius:0 10px 10px 0; }
+  .feat{ display:flex; gap:11px; align-items:flex-start; }
+  .feat .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); margin-top:8px; flex-shrink:0; }
+  .wsicon{ width:42px; height:42px; border-radius:11px; display:grid; place-items:center; font-size:21px; flex-shrink:0;
+    background:var(--greenlight); color:var(--sbgreen); }
+  .stepnum{ width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff;
+    display:grid; place-items:center; font-weight:700; font-size:14px; flex-shrink:0; }
+  .step .num{ width:28px; height:28px; border-radius:50%; background:var(--accent); color:#fff;
+    display:grid; place-items:center; font-weight:700; font-size:13px; flex-shrink:0; }
+
+  @media print{
+    .no-print{ display:none !important; }
+    body{ background:#fff; }
+    .card{ box-shadow:none; border:1px solid #ddd; }
+    main{ max-width:none !important; }
+  }
+  html{ scroll-behavior:smooth; }
+  section[id]{ scroll-margin-top:84px; }
+</style>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#1E3932">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#1E3932"/>
+    <circle cx="600" cy="330" r="120" fill="#00754A"/>
+    <text x="600" y="372" font-family="Georgia, serif" font-size="130" font-weight="700" fill="#ffffff" text-anchor="middle">⌂</text>
+    <text x="600" y="560" font-family="Georgia, serif" font-size="80" font-weight="700" fill="#ffffff" text-anchor="middle">REI Hub</text>
+    <text x="600" y="628" font-family="Arial, sans-serif" font-size="30" fill="#cba258" text-anchor="middle" letter-spacing="3">SETUP &amp; FEATURES</text>
+  </svg>
+</template>
+
+<!-- top bar -->
+<div class="sticky top-0 z-40 no-print" style="background:var(--card); box-shadow:var(--navshadow)">
+  <div class="max-w-[1080px] mx-auto px-4 py-3 flex items-center gap-3">
+    <div class="w-9 h-9 rounded-full grid place-items-center text-white text-lg" style="background:var(--accent)">⌂</div>
+    <div>
+      <div class="serif text-sbgreen text-lg leading-none" style="font-weight:700">REI&nbsp;Hub</div>
+      <div class="label" style="font-size:10px">The Setup &amp; Features Guide</div>
+    </div>
+    <div class="ml-auto flex items-center gap-2">
+      <button onclick="window.print()" class="pill pill-outline pill-sm hidden sm:inline-flex">⤓ Print / PDF</button>
+      <button onclick="toggleTheme()" class="pill pill-outline pill-sm"><span id="themeTxt">◐ Dark</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- hero -->
+<div class="band">
+  <div class="max-w-[1080px] mx-auto px-5 py-12">
+    <span class="badge" style="background:var(--gold); color:#3a2c0c">FREE TO START · UPGRADE FOR LIVE DATA</span>
+    <h1 class="serif mt-4" style="font-weight:700; font-size:42px; line-height:1.1; color:#fff">The Setup &amp; Features Guide</h1>
+    <p class="mt-4 max-w-2xl" style="color:rgba(255,255,255,0.78); font-size:17px; line-height:1.6">
+      Everything REI&nbsp;Hub can do, and exactly what's <b style="color:#fff">free</b> versus what's part of the paid
+      <b style="color:#fff">Live Data</b> subscription. Seven connected workspaces take a deal from first sighting to
+      closed and cash-flowing — your deal data always stays on your device, and Live Data fills in real rates, listings,
+      and market numbers automatically. No install, no login, one file.
+    </p>
+    <div class="flex flex-wrap gap-2 mt-6">
+      <a href="#tiers" class="pill" style="background:#fff; color:var(--accent)">What's free vs. paid →</a>
+      <a href="#workspaces" class="pill" style="background:transparent; color:#fff; border-color:#fff">Tour the workspaces</a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-9">
+      <div><div class="serif text-3xl" style="color:#fff;font-weight:700">7</div><div class="label" style="color:rgba(255,255,255,0.6)">Workspaces</div></div>
+      <div><div class="serif text-3xl" style="color:#fff;font-weight:700">0–100</div><div class="label" style="color:rgba(255,255,255,0.6)">Worth-buying score</div></div>
+      <div><div class="serif text-3xl" style="color:#fff;font-weight:700">100%</div><div class="label" style="color:rgba(255,255,255,0.6)">Offline &amp; private</div></div>
+      <div><div class="serif text-3xl" style="color:#fff;font-weight:700">1</div><div class="label" style="color:rgba(255,255,255,0.6)">File, no install</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-[1080px] mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-8">
+
+  <!-- TOC -->
+  <aside class="no-print hidden lg:block">
+    <div class="sticky top-[84px]">
+      <div class="label mb-2 px-3">On this page</div>
+      <nav class="toc" id="toc">
+        <a href="#start">Start here</a>
+        <a href="#tiers">Free vs. Live Data</a>
+        <a href="#workspaces">The 7 workspaces</a>
+        <a href="#dashboard" class="ind">↳ Dashboard</a>
+        <a href="#analyzer" class="ind">↳ Analyzer</a>
+        <a href="#portfolio" class="ind">↳ Portfolio</a>
+        <a href="#pipeline" class="ind">↳ Pipeline</a>
+        <a href="#reno" class="ind">↳ Reno / Flip</a>
+        <a href="#market" class="ind">↳ Market</a>
+        <a href="#listings" class="ind">↳ Listings</a>
+        <a href="#anywhere">Do anywhere</a>
+        <a href="#workflow">The deal workflow</a>
+        <a href="#quickstart">Getting started</a>
+        <a href="#livedata">Turn on Live Data</a>
+        <a href="#included">What Live Data includes</a>
+        <a href="#privacy">Your data &amp; privacy</a>
+        <a href="#backup">Back up &amp; move data</a>
+        <a href="#offline">Works offline</a>
+        <a href="#trouble">Troubleshooting</a>
+        <a href="#faq">Billing &amp; FAQ</a>
+        <a href="#checklist">Checklist</a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- content -->
+  <main class="min-w-0 space-y-10">
+
+    <!-- START -->
+    <section id="start">
+      <h2 class="sec">Start here</h2>
+      <p class="mt-3">REI Hub is a complete underwriting and execution toolkit for real-estate investors — wrapped in a single self-contained file. Open it and you're working immediately: no install, no login, no internet required. This guide is the map of <b>what you can do</b>, <b>what's free</b>, and <b>what the Live Data subscription adds</b>.</p>
+      <div class="grid sm:grid-cols-3 gap-3 mt-4">
+        <div class="card p-4">
+          <div class="text-2xl">⚡</div>
+          <h3 class="sub mt-2">Open &amp; go</h3>
+          <p class="muted text-[13px] mt-1">Open the app file in any browser. It loads with a full set of sample deals so you can explore every feature right away.</p>
+        </div>
+        <div class="card p-4">
+          <div class="text-2xl">✎</div>
+          <h3 class="sub mt-2">Make it yours</h3>
+          <p class="muted text-[13px] mt-1">Add your own listings, properties, leads, and rehab jobs. Everything you type is saved instantly to your browser.</p>
+        </div>
+        <div class="card p-4">
+          <div class="text-2xl">↺</div>
+          <h3 class="sub mt-2">Reset anytime</h3>
+          <p class="muted text-[13px] mt-1">"Reset demo data" in the footer wipes your edits and reloads the original sample set — handy while you learn the ropes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIERS -->
+    <section id="tiers">
+      <h2 class="sec">Free vs. Live Data — at a glance</h2>
+      <p class="mt-3">Everyone starts free. The free app organizes your whole deal workflow using numbers you enter yourself. The <b>Live Data</b> subscription unlocks the Analyzer and Portfolio tracker, and fills every screen with real, auto-refreshing numbers. Here's exactly where the line sits:</p>
+
+      <div class="grid sm:grid-cols-2 gap-3 mt-5">
+        <div class="card p-5">
+          <span class="tier tier-free">Free · forever</span>
+          <h3 class="sub mt-3">Standalone (offline)</h3>
+          <div class="space-y-2 mt-3">
+            <div class="feat"><div class="dot"></div><div>Dashboard, deal pipeline, Reno / Flip &amp; listings builder</div></div>
+            <div class="feat"><div class="dot"></div><div>Tax, transfer &amp; mortgage calculators — enter your own numbers</div></div>
+            <div class="feat"><div class="dot"></div><div>PDF export, light/dark theme, backup &amp; restore</div></div>
+            <div class="feat"><div class="dot"></div><div>Works with no internet; your data stays on your device</div></div>
+          </div>
+        </div>
+        <div class="card p-5" style="outline:2px solid var(--accent)">
+          <span class="tier tier-live">Live Data · subscription</span>
+          <h3 class="sub mt-3">Everything in Free, plus:</h3>
+          <div class="space-y-2 mt-3">
+            <div class="feat"><div class="dot"></div><div><b>Analyzer</b> — the 0–100 Worth-Buying score &amp; full underwriting</div></div>
+            <div class="feat"><div class="dot"></div><div><b>Portfolio tracker</b> — owned-property KPIs, equity &amp; cashflow charts</div></div>
+            <div class="feat"><div class="dot"></div><div><b>Live mortgage rates</b> feed every payment calculation</div></div>
+            <div class="feat"><div class="dot"></div><div><b>Real listings, parcel/APN/tax records &amp; market trends</b>, refreshed automatically</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card overflow-auto mt-4"><table class="tbl">
+        <thead><tr><th>Workspace / capability</th><th class="col-c">Free</th><th class="col-c">Live Data</th></tr></thead>
+        <tbody>
+          <tr><td><b>Dashboard</b> — map, KPIs, alerts &amp; watchlist</td><td class="col-c yes">✓ your numbers</td><td class="col-c yes">✓ + live listings</td></tr>
+          <tr><td><b>Analyzer</b> — Worth-Buying score &amp; underwriting</td><td class="col-c no">🔒 subscription</td><td class="col-c yes">✓</td></tr>
+          <tr><td><b>Portfolio</b> — owned-door tracking &amp; charts</td><td class="col-c no">🔒 subscription</td><td class="col-c yes">✓</td></tr>
+          <tr><td><b>Pipeline</b> — lead CRM &amp; FSBO checklist</td><td class="col-c yes">✓</td><td class="col-c yes">✓</td></tr>
+          <tr><td><b>Reno / Flip</b> — timeline, budget &amp; contractors</td><td class="col-c yes">✓</td><td class="col-c yes">✓</td></tr>
+          <tr><td><b>Market</b> — tax &amp; transfer calculators</td><td class="col-c yes">✓</td><td class="col-c yes">✓</td></tr>
+          <tr><td><b>Market</b> — live state trends &amp; metric filters</td><td class="col-c no">🔒 subscription</td><td class="col-c yes">✓ all 50 states</td></tr>
+          <tr><td><b>Listings</b> — FSBO builder &amp; PDF export</td><td class="col-c yes">✓</td><td class="col-c yes">✓</td></tr>
+          <tr><td>Mortgage rate</td><td class="col-c no">Manual entry</td><td class="col-c yes">Live 30-yr rate</td></tr>
+          <tr><td>Parcel ID, APN &amp; tax figures</td><td class="col-c no">Manual entry</td><td class="col-c yes">Live county records</td></tr>
+          <tr><td>Offline, on-device &amp; private</td><td class="col-c yes">✓</td><td class="col-c yes">✓</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note p-4 mt-4 text-[13px]"><b>The golden rule:</b> the analysis never depends on a connection. Live Data only <i>refreshes the inputs</i> (rates, listings, comps) and unlocks the Analyzer &amp; Portfolio. Everything you calculate keeps working even if you're offline.</div>
+    </section>
+
+    <!-- WORKSPACES -->
+    <section id="workspaces">
+      <h2 class="sec">The seven workspaces</h2>
+      <p class="mt-3">Switch between them from the top navigation bar. Each one owns a stage of the investing process — and each is tagged <span class="tier tier-free">Free</span> or <span class="tier tier-live">Live Data</span> so you always know what's included.</p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <a href="#dashboard" class="card p-4 flex gap-3 items-start" style="text-decoration:none"><div class="wsicon">▦</div><div><div class="flex items-center gap-2 flex-wrap"><h3 class="sub">Dashboard</h3><span class="tier tier-free">Free</span></div><p class="muted text-[13px] mt-0.5">Command center — map, alerts, KPIs &amp; your hottest deal.</p></div></a>
+        <a href="#analyzer" class="card p-4 flex gap-3 items-start" style="text-decoration:none"><div class="wsicon">◎</div><div><div class="flex items-center gap-2 flex-wrap"><h3 class="sub">Analyzer</h3><span class="tier tier-live">Live Data</span></div><p class="muted text-[13px] mt-0.5">Score any deal 0–100 and see every return metric.</p></div></a>
+        <a href="#portfolio" class="card p-4 flex gap-3 items-start" style="text-decoration:none"><div class="wsicon">⌂</div><div><div class="flex items-center gap-2 flex-wrap"><h3 class="sub">Portfolio</h3><span class="tier tier-live">Live Data</span></div><p class="muted text-[13px] mt-0.5">Track owned doors — cashflow, equity &amp; ROI.</p></div></a>
+        <a href="#pipeline" class="card p-4 flex gap-3 items-start" style="text-decoration:none"><div class="wsicon">▤</div><div><div class="flex items-center gap-2 flex-wrap"><h3 class="sub">Pipeline</h3><span class="tier tier-free">Free</span></div><p class="muted text-[13px] mt-0.5">A lead CRM that moves deals from contact to close.</p></div></a>
+        <a href="#reno" class="card p-4 flex gap-3 items-start" style="text-decoration:none"><div class="wsicon">◳</div><div><div class="flex items-center gap-2 flex-wrap"><h3 class="sub">Reno / Flip</h3><span class="tier tier-free">Free</span></div><p class="muted text-[13px] mt-0.5">Plan timelines, budgets &amp; contractors for a rehab.</p></div></a>
+        <a href="#market" class="card p-4 flex gap-3 items-start" style="text-decoration:none"><div class="wsicon">◔</div><div><div class="flex items-center gap-2 flex-wrap"><h3 class="sub">Market</h3><span class="tier tier-free">Free</span><span class="tier tier-live">Live trends</span></div><p class="muted text-[13px] mt-0.5">Calculators are free; live state trends need Live Data.</p></div></a>
+        <a href="#listings" class="card p-4 flex gap-3 items-start sm:col-span-2" style="text-decoration:none"><div class="wsicon">⎙</div><div><div class="flex items-center gap-2 flex-wrap"><h3 class="sub">Listings</h3><span class="tier tier-free">Free</span></div><p class="muted text-[13px] mt-0.5">Build an FSBO listing sheet and export it as a polished PDF.</p></div></a>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard">
+      <div class="flex items-center gap-3 flex-wrap"><div class="wsicon">▦</div><h2 class="sec">Dashboard</h2><span class="tier tier-free">Free</span></div>
+      <p class="mt-3 muted">Your at-a-glance command center. Open it and you instantly see the health of your portfolio and which tracked listings need attention today. <span class="muted">With Live Data the map and watchlist fill with real listings and prices.</span></p>
+      <div class="card p-5 mt-4 space-y-3">
+        <div class="feat"><div class="dot"></div><div><b>Live KPI cards.</b> Portfolio value, total equity, monthly cashflow, and average cap rate — recalculated from your real numbers every time you make a change.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>GIS map with parcels &amp; tax.</b> Every owned and watched property is pinned on an interactive map. Click a marker to pull up its parcel APN, assessed value, zoning, and effective tax rate. Toggle between <code class="inl">All</code>, <code class="inl">Owned</code>, and <code class="inl">Watch</code> layers.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>DOM tracker &amp; price-drop alerts.</b> Each tracked listing shows its days-on-market and flags any price cut versus the original ask — so motivated sellers surface themselves. A blinking alert strip calls out fresh drops and stale (90+ DOM) listings.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Top-signal deal card.</b> The hub automatically ranks your watchlist and spotlights the single highest-scoring opportunity, with its cap, cash-on-cash, cashflow, and 70% max-allowable-offer — one tap to underwrite it.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Trailing-12-month cashflow chart.</b> A rolling view of portfolio net cashflow so you can see the trend, not just the snapshot.</div></div>
+      </div>
+    </section>
+
+    <!-- ANALYZER -->
+    <section id="analyzer">
+      <div class="flex items-center gap-3 flex-wrap"><div class="wsicon">◎</div><h2 class="sec">Analyzer — the "Worth Buying" engine</h2><span class="tier tier-live">Live Data</span></div>
+      <p class="mt-3 muted">The heart of the hub. Punch in a deal and get a single <b>0–100 Worth-Buying Score</b> plus a full underwriting breakdown — in real time as you type. <span style="color:var(--accent);font-weight:600">(Part of the Live Data subscription.)</span></p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <div class="card p-5 space-y-3">
+          <h3 class="sub">What you put in</h3>
+          <div class="feat"><div class="dot"></div><div>Purchase price, ARV, rehab budget, rent, taxes, insurance</div></div>
+          <div class="feat"><div class="dot"></div><div>Down-payment %, mortgage rate, days-on-market, price-drop %</div></div>
+          <div class="feat"><div class="dot"></div><div>Market appreciation and your vacancy / maintenance / management load</div></div>
+        </div>
+        <div class="card p-5 space-y-3">
+          <h3 class="sub">What you get back</h3>
+          <div class="feat"><div class="dot"></div><div>A color-coded verdict: <span class="badge" style="background:var(--accent);color:#fff">STRONG BUY</span> <span class="badge" style="background:var(--greenlight);color:var(--sbgreen)">BUY</span> <span class="badge" style="background:var(--gold);color:#3a2c0c">NEGOTIATE</span> <span class="badge" style="background:var(--red);color:#fff">PASS</span></div></div>
+          <div class="feat"><div class="dot"></div><div>Cap rate, cash-on-cash, monthly cashflow, NOI, the 1% rule, equity capture, monthly P&amp;I</div></div>
+          <div class="feat"><div class="dot"></div><div>The <b>70% Rule</b> maximum allowable offer, with how far over/under you are</div></div>
+        </div>
+      </div>
+      <div class="card p-5 mt-3">
+        <h3 class="sub">How the score is built</h3>
+        <p class="muted text-[13px] mt-1">The composite score blends eight weighted, normalized signals so no single metric dominates. An expandable panel in the app shows the exact formula and band thresholds.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 text-[12px]">
+          <div class="soft rounded-lg px-3 py-2"><div class="label text-[9px]">Cap rate</div><div class="font-bold text-ink">18%</div></div>
+          <div class="soft rounded-lg px-3 py-2"><div class="label text-[9px]">Cash-on-cash</div><div class="font-bold text-ink">18%</div></div>
+          <div class="soft rounded-lg px-3 py-2"><div class="label text-[9px]">Equity capture</div><div class="font-bold text-ink">16%</div></div>
+          <div class="soft rounded-lg px-3 py-2"><div class="label text-[9px]">Monthly cashflow</div><div class="font-bold text-ink">14%</div></div>
+          <div class="soft rounded-lg px-3 py-2"><div class="label text-[9px]">1% rule</div><div class="font-bold text-ink">12%</div></div>
+          <div class="soft rounded-lg px-3 py-2"><div class="label text-[9px]">Days on market</div><div class="font-bold text-ink">8%</div></div>
+          <div class="soft rounded-lg px-3 py-2"><div class="label text-[9px]">Market modifier</div><div class="font-bold text-ink">8%</div></div>
+          <div class="soft rounded-lg px-3 py-2"><div class="label text-[9px]">Price drop</div><div class="font-bold text-ink">6%</div></div>
+        </div>
+      </div>
+      <div class="note p-4 mt-3 text-[13px]"><b>One-tap shortcuts:</b> load a sample deal to experiment, analyze any watchlist listing straight from the Dashboard, then <b>send the deal to your pipeline</b> as a new lead with the 70% offer pre-filled.</div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="flex items-center gap-3 flex-wrap"><div class="wsicon">⌂</div><h2 class="sec">Portfolio</h2><span class="tier tier-live">Live Data</span></div>
+      <p class="mt-3 muted">Everything you already own, with the numbers that matter kept current automatically. <span style="color:var(--accent);font-weight:600">(Part of the Live Data subscription.)</span></p>
+      <div class="card p-5 mt-4 space-y-3">
+        <div class="feat"><div class="dot"></div><div><b>Owned-property table.</b> Each door shows value, loan balance, rent, monthly cashflow, cap rate, cash-on-cash, and equity — computed from a real amortization formula. Add new properties with one click.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Portfolio KPIs.</b> Roll-up cards for total value, equity, cashflow, and average returns across every property.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Equity &amp; cashflow charts.</b> Compare equity by property and monthly cashflow side by side to spot your strongest and weakest performers.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Rehab budget tracker.</b> Keep a running tally of spend against budget for active value-add projects.</div></div>
+      </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section id="pipeline">
+      <div class="flex items-center gap-3 flex-wrap"><div class="wsicon">▤</div><h2 class="sec">Pipeline</h2><span class="tier tier-free">Free</span></div>
+      <p class="mt-3 muted">A lightweight deal CRM so no lead ever falls through the cracks.</p>
+      <div class="card p-5 mt-4 space-y-3">
+        <div class="feat"><div class="dot"></div><div><b>Kanban stages.</b> Move each lead across a five-column board from first contact through offer, negotiation, under-contract, and closing.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Rich lead records.</b> Track the property, owner name, phone, lead source, offer amount, and free-form notes. Add leads manually, from the watchlist, or straight out of the Analyzer.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>FSBO acquisition checklist.</b> A built-in 12-step playbook — pull comps, verify owner of record, check liens, submit a written offer, order title, close &amp; record — with a live progress bar.</div></div>
+      </div>
+    </section>
+
+    <!-- RENO -->
+    <section id="reno">
+      <div class="flex items-center gap-3 flex-wrap"><div class="wsicon">◳</div><h2 class="sec">Reno / Flip</h2><span class="tier tier-free">Free</span></div>
+      <p class="mt-3 muted">Plan and run the renovation once a deal is yours.</p>
+      <div class="card p-5 mt-4 space-y-3">
+        <div class="feat"><div class="dot"></div><div><b>Job timeline (Gantt).</b> Lay out every phase — demo, roof, rough-ins, HVAC, drywall, kitchen &amp; bath, flooring, punch list — with start dates, durations, and done-state tracking. Switch between multiple projects.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Material &amp; labor cost table.</b> Itemize every line by category, quantity, unit cost, and vendor — add new lines as the job evolves and watch the total build.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Contractor roster.</b> Keep each trade's contact, rate, and status (active / scheduled / done) in one place.</div></div>
+      </div>
+    </section>
+
+    <!-- MARKET -->
+    <section id="market">
+      <div class="flex items-center gap-3 flex-wrap"><div class="wsicon">◔</div><h2 class="sec">Market</h2><span class="tier tier-free">Free calculators</span><span class="tier tier-live">Live trends</span></div>
+      <p class="mt-3 muted">Context for every decision, plus the tax math you'd otherwise do by hand. The calculators are free; the live state-by-state trend charts and metric filters are part of Live Data.</p>
+      <div class="card p-5 mt-4 space-y-3">
+        <div class="feat"><div class="dot"></div><div><b>Trends by state. <span class="tier tier-live">Live Data</span></b> Pick a state and a metric — median price, average days-on-market, or inventory — and read it on a chart, alongside KPI cards for the market.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Property tax estimator. <span class="tier tier-free">Free</span></b> Estimate annual property tax for any value using state-level effective rates.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Transfer / sales tax calculator. <span class="tier tier-free">Free</span></b> Project closing-side transfer and sales taxes before you write the offer.</div></div>
+      </div>
+    </section>
+
+    <!-- LISTINGS -->
+    <section id="listings">
+      <div class="flex items-center gap-3 flex-wrap"><div class="wsicon">⎙</div><h2 class="sec">Listings</h2><span class="tier tier-free">Free</span></div>
+      <p class="mt-3 muted">When you're the seller, produce a clean listing sheet without leaving the hub.</p>
+      <div class="card p-5 mt-4 space-y-3">
+        <div class="feat"><div class="dot"></div><div><b>FSBO listing builder.</b> Enter address, price, beds, baths, square footage, year, a description, and a pipe-separated feature list.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>Live preview.</b> A formatted listing card updates as you type, so what you see is exactly what prints.</div></div>
+        <div class="feat"><div class="dot"></div><div><b>One-click PDF export.</b> Generate a shareable listing PDF to hand to buyers or post.</div></div>
+      </div>
+    </section>
+
+    <!-- ANYWHERE -->
+    <section id="anywhere">
+      <h2 class="sec">Things you can do anywhere</h2>
+      <p class="mt-3 muted">A handful of actions live in the chrome and follow you across every workspace.</p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <div class="card p-4"><h3 class="sub">＋ Track a listing</h3><p class="muted text-[13px] mt-1">The floating green button and the "＋ Track" action add any property to your watchlist from anywhere — it's instantly scored and mapped.</p></div>
+        <div class="card p-4"><h3 class="sub">⤓ Export a PDF report</h3><p class="muted text-[13px] mt-1">Generate a PDF snapshot of your hub straight from the nav bar.</p></div>
+        <div class="card p-4"><h3 class="sub">◐ Light / dark theme</h3><p class="muted text-[13px] mt-1">Flip the whole interface between a warm light mode and a deep-green dark mode; your choice is remembered.</p></div>
+        <div class="card p-4"><h3 class="sub">⚑ Live status strip</h3><p class="muted text-[13px] mt-1">The header always shows the current rate, how many listings you're watching, active leads, and open alerts.</p></div>
+      </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section id="workflow">
+      <h2 class="sec">The deal workflow, end to end</h2>
+      <p class="mt-3 muted">Here's how the workspaces chain together on a single deal.</p>
+      <div class="card p-5 mt-4 space-y-4">
+        <div class="flex gap-3 items-start"><div class="stepnum">1</div><div><b>Spot it.</b> Track a listing — it lands on the Dashboard map and watchlist with a Worth-Buying score and DOM/price-drop flags.</div></div>
+        <div class="flex gap-3 items-start"><div class="stepnum">2</div><div><b>Underwrite it.</b> Tap <i>Analyze</i> to open it in the Analyzer, tweak assumptions, and confirm the score and 70% offer.</div></div>
+        <div class="flex gap-3 items-start"><div class="stepnum">3</div><div><b>Pursue it.</b> Send the deal to the Pipeline as a lead and work it across the kanban using the FSBO checklist.</div></div>
+        <div class="flex gap-3 items-start"><div class="stepnum">4</div><div><b>Renovate it.</b> Once it's yours, build the rehab timeline, budget, and contractor roster in Reno / Flip.</div></div>
+        <div class="flex gap-3 items-start"><div class="stepnum">5</div><div><b>Hold or sell it.</b> Add it to the Portfolio to track cashflow and equity — or build a Listings sheet and sell.</div></div>
+      </div>
+    </section>
+
+    <!-- QUICKSTART -->
+    <section id="quickstart">
+      <h2 class="sec">Getting started</h2>
+      <p class="mt-3">There's nothing to install and no server to run. Pick your version:</p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <div class="card p-5">
+          <span class="tier tier-free">Free version</span>
+          <div class="space-y-3 mt-3">
+            <div class="step flex gap-3 items-start"><div class="num">1</div><div><b>Open the app link</b> from your download email, or open the file you saved.</div></div>
+            <div class="step flex gap-3 items-start"><div class="num">2</div><div><b>Start with the sample deals</b> that load automatically, or clear them and add your own.</div></div>
+            <div class="step flex gap-3 items-start"><div class="num">3</div><div><b>That's it.</b> Everything saves in your browser as you go.</div></div>
+          </div>
+        </div>
+        <div class="card p-5">
+          <span class="tier tier-live">Live Data version</span>
+          <div class="space-y-3 mt-3">
+            <div class="step flex gap-3 items-start"><div class="num">1</div><div><b>Subscribe</b> — you'll get an app link and a license key by email.</div></div>
+            <div class="step flex gap-3 items-start"><div class="num">2</div><div><b>Open the app, click <span style="white-space:nowrap">Live Data</span> in the header</b> and paste your key.</div></div>
+            <div class="step flex gap-3 items-start"><div class="num">3</div><div><b>Live Data turns on.</b> The Analyzer &amp; Portfolio unlock and rates, listings, and market numbers start filling in automatically.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="note p-4 mt-4 text-[13px]"><b>Works on any device.</b> Open it in Chrome, Safari, Edge, or Firefox on desktop, tablet, or phone. Add it to your home screen for a one-tap, app-like launch — see <a class="link" href="#offline">Works offline</a>.</div>
+    </section>
+
+    <!-- LIVE DATA -->
+    <section id="livedata">
+      <h2 class="sec">Turning on Live Data</h2>
+      <p class="mt-3">Live Data is a service we host and keep running for you. There are <b>no API keys to get, no servers to set up, and nothing technical to configure</b> — that's the whole point of the subscription. You paste one key and it works.</p>
+      <div class="space-y-3 mt-4">
+        <div class="step flex gap-3 items-start"><div class="num">1</div><div><b>Subscribe to Live Data.</b> After checkout you'll receive your license key by email (also shown on your receipt).</div></div>
+        <div class="step flex gap-3 items-start"><div class="num">2</div><div><b>Click the <span style="white-space:nowrap">Live Data</span> button</b> in the app header and paste the key into the box.</div></div>
+        <div class="step flex gap-3 items-start"><div class="num">3</div><div><b>Click Activate.</b> The status chip in the header switches to <b>"Live Data on"</b> and the first refresh runs immediately.</div></div>
+        <div class="step flex gap-3 items-start"><div class="num">4</div><div><b>Leave it running.</b> The app refreshes in the background on its own — check the "last updated" time in the header anytime.</div></div>
+      </div>
+      <div class="card p-5 mt-4">
+        <h3 class="sub">What happens behind the scenes</h3>
+        <p class="muted text-[13px] mt-2">Your app checks your key, then quietly requests the latest <i>public</i> figures (rates, listings, market stats) from our hosted service and drops them into the right screens. If the connection is slow or down, it simply keeps showing the last numbers it had — the app never freezes waiting on data.</p>
+      </div>
+      <div class="note p-4 mt-4 text-[13px]"><b>Included with your subscription.</b> Data refreshes, provider costs, and upkeep are all covered — you never manage or pay for any of it separately. Use your key on up to <b>3 devices</b>; free a slot anytime with <b>Live Data → Deactivate</b>.</div>
+    </section>
+
+    <!-- INCLUDED -->
+    <section id="included">
+      <h2 class="sec">What Live Data includes</h2>
+      <p class="mt-3">When Live Data is on, these numbers stop being manual entries and start updating for you:</p>
+      <div class="card overflow-auto mt-4"><table class="tbl">
+        <thead><tr><th>Where you see it</th><th>What Live Data fills in</th></tr></thead>
+        <tbody>
+          <tr><td><b>Analyzer &amp; Dashboard</b></td><td>Current 30-year mortgage rate feeds every payment and cash-flow calculation</td></tr>
+          <tr><td><b>Dashboard map &amp; watchlist</b></td><td>Real listings with live prices and days-on-market, plus automatic price-drop alerts</td></tr>
+          <tr><td><b>Property map popups</b></td><td>Parcel ID (APN), assessed value, and real tax figures from county records</td></tr>
+          <tr><td><b>Market tab</b></td><td>Up-to-date median prices, inventory, and days-on-market for all 50 states</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted text-[12px] mt-3">Live figures are aggregated from trusted public and licensed real-estate data providers and refreshed on a regular schedule. Coverage and update frequency can vary by area. Mortgage-rate data source: FRED, Federal Reserve Bank of St.&nbsp;Louis — not endorsed by or affiliated with the Federal Reserve.</p>
+    </section>
+
+    <!-- PRIVACY -->
+    <section id="privacy">
+      <h2 class="sec">Your data &amp; privacy</h2>
+      <p class="mt-3">Your deals belong to you. REI&nbsp;Hub keeps <b>everything you enter — properties, leads, budgets, notes — on your own device</b>, saved in your browser. It's never uploaded to us and never shared.</p>
+      <div class="grid sm:grid-cols-3 gap-3 mt-4">
+        <div class="card p-4">
+          <div class="text-2xl">💾</div>
+          <h3 class="sub mt-2">Stored on your device</h3>
+          <p class="muted text-[13px] mt-1">Your work is saved locally the instant you make a change. Close the tab and come back — it's all still there.</p>
+        </div>
+        <div class="card p-4">
+          <div class="text-2xl">🔒</div>
+          <h3 class="sub mt-2">Your deals stay private</h3>
+          <p class="muted text-[13px] mt-1">Even on Live Data, we only send you <i>public</i> market info. Your own numbers never leave your device.</p>
+        </div>
+        <div class="card p-4">
+          <div class="text-2xl">🙅</div>
+          <h3 class="sub mt-2">No account for your data</h3>
+          <p class="muted text-[13px] mt-1">The license key only unlocks Live Data — it isn't a cloud login and doesn't store your portfolio anywhere.</p>
+        </div>
+      </div>
+      <div class="warn p-4 mt-4 text-[13px]"><b>Because it's stored on your device:</b> clearing your browser data, or using a private/incognito window, will erase your saved deals. Keep a backup — see <a class="link" href="#backup">Back up &amp; move data</a>.</div>
+    </section>
+
+    <!-- BACKUP -->
+    <section id="backup">
+      <h2 class="sec">Back up &amp; move your data</h2>
+      <p class="mt-3">Since your deals live on your device, it's worth keeping a backup — and it's how you move your work to a new computer, browser, or phone.</p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <div class="card p-5">
+          <h3 class="sub">The easy way</h3>
+          <p class="muted text-[13px] mt-1">Use the built-in buttons in the app footer:</p>
+          <ul class="list-disc ml-5 text-[13px] mt-2 space-y-1">
+            <li><b>Export data</b> — saves a backup file to your device.</li>
+            <li><b>Import data</b> — loads that file on another device or browser.</li>
+          </ul>
+          <p class="muted text-[12px] mt-2">Do this before switching browsers or clearing history.</p>
+        </div>
+        <div class="card p-5">
+          <h3 class="sub">Good habits</h3>
+          <ul class="list-disc ml-5 text-[13px] mt-2 space-y-1">
+            <li>Export a fresh backup after a big work session.</li>
+            <li>Keep the backup file in your cloud drive (Dropbox, iCloud, Drive).</li>
+            <li>Use the same browser on the same device day-to-day so your data is always where you expect it.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warn p-4 mt-4 text-[13px]"><b>Heads-up:</b> your saved data is tied to the exact browser and device you use. Data in Chrome is separate from Safari; data in a normal window is separate from incognito. Pick one and stick with it, or use Export/Import to move between them.</div>
+    </section>
+
+    <!-- OFFLINE -->
+    <section id="offline">
+      <h2 class="sec">Works offline &amp; installs like an app</h2>
+      <p class="mt-3">The status chip in the header reads <b>"Live Data on"</b> or <b>"Saved local"</b> when connected, and switches to <b>"Offline mode"</b> automatically if your connection drops — your data and every calculation keep working either way.</p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <div class="card p-4">
+          <h3 class="sub">Add to home screen</h3>
+          <p class="muted text-[13px] mt-1"><b>iPhone/iPad:</b> Share → "Add to Home Screen." <b>Android:</b> menu → "Add to Home screen." <b>Desktop Chrome/Edge:</b> the install icon in the address bar. It then opens full-screen like a native app.</p>
+        </div>
+        <div class="card p-4">
+          <h3 class="sub">What still works offline</h3>
+          <p class="muted text-[13px] mt-1">Your saved deals, the pipeline, Reno/Flip, listings and the calculators. On Live Data, the Analyzer &amp; Portfolio stay unlocked; only <i>fresh</i> live figures pause until you're back online — then they refresh on their own.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TROUBLE -->
+    <section id="trouble">
+      <h2 class="sec">Troubleshooting</h2>
+      <div class="card overflow-auto mt-3"><table class="tbl">
+        <thead><tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr></thead>
+        <tbody>
+          <tr><td>Live Data won't turn on</td><td>Key typed with an extra space, or subscription not active yet</td><td>Re-paste the key from your email; confirm your subscription is active in your account</td></tr>
+          <tr><td>Analyzer / Portfolio still locked</td><td>Live Data not activated on this device</td><td>Click <b>Live Data</b> in the header and paste your key, then Activate</td></tr>
+          <tr><td>Numbers look out of date</td><td>App hasn't refreshed, or you're offline</td><td>Check the "last updated" time; reconnect and it refreshes automatically</td></tr>
+          <tr><td>Map is blank</td><td>Opened offline before tiles loaded</td><td>Switch back to the Dashboard tab, or reconnect once</td></tr>
+          <tr><td>My deals disappeared</td><td>Different browser/device, or history was cleared</td><td>Import your backup file; use the same browser you started in</td></tr>
+          <tr><td>Data didn't save</td><td>Private/incognito window clears storage on close</td><td>Use a normal window and export a backup regularly</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note p-4 mt-4 text-[13px]">Still stuck? Reply to your purchase email and we'll help — please include what device and browser you're using.</div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <h2 class="sec">Billing &amp; common questions</h2>
+      <div class="space-y-3 mt-3">
+        <div class="card p-4"><h3 class="sub">Do I need the paid version?</h3><p class="muted text-[13px] mt-1">The free version organizes your deals — dashboard, pipeline, rehab budgets, listings and calculators. Live Data unlocks the Analyzer's Worth-Buying scoring and the Portfolio tracker, and fills in real rates, listings and market numbers automatically instead of by hand.</p></div>
+        <div class="card p-4"><h3 class="sub">What happens if I cancel?</h3><p class="muted text-[13px] mt-1">Live Data switches off and the app reverts to the free version — the Analyzer and Portfolio lock again. You keep all your saved deals and every free calculation; it just stops auto-refreshing.</p></div>
+        <div class="card p-4"><h3 class="sub">Can I use it on more than one device?</h3><p class="muted text-[13px] mt-1">Yes — click <b>Live Data</b> and paste your key on each device, up to <b>3 devices</b> (e.g. phone, laptop, tablet). Free up a slot anytime by clicking <b>Live Data → Deactivate</b> on a device you no longer use. Move your saved deals between devices with Export/Import.</p></div>
+        <div class="card p-4"><h3 class="sub">Is there anything to install or maintain?</h3><p class="muted text-[13px] mt-1">No. The Live Data service is fully hosted and maintained by us. There are no keys to obtain, no servers to run, and no updates to install — you just use the app.</p></div>
+        <div class="card p-4"><h3 class="sub">Where does the live data come from?</h3><p class="muted text-[13px] mt-1">It's aggregated from trusted public and licensed real-estate data providers, refreshed on a schedule, and delivered to your app through our hosted service. Mortgage-rate data is sourced from FRED, Federal Reserve Bank of St. Louis.</p></div>
+      </div>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section id="checklist">
+      <h2 class="sec">Quick-start checklist</h2>
+      <div class="card p-5 mt-3">
+        <div id="checks" class="space-y-2"></div>
+        <div class="soft rounded-full h-2.5 mt-4 overflow-hidden"><div id="checkBar" class="h-full" style="width:0%;background:var(--accent);transition:width .25s ease"></div></div>
+        <p class="muted text-[12px] mt-2"><span id="checkCount">0</span> of 6 complete — tick as you go.</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="band mt-6">
+  <div class="max-w-[1080px] mx-auto px-5 py-6 flex flex-wrap items-center gap-3">
+    <span class="badge" style="background:var(--gold);color:#3a2c0c">⚿ Offline-first · your data stays on-device</span>
+    <span class="serif text-[14px]" style="color:rgba(255,255,255,0.9)">REI Execution System — The Setup &amp; Features Guide</span>
+    <span class="ml-auto text-[12px]" style="color:rgba(255,255,255,0.6)">© 2026</span>
+  </div>
+</footer>
+
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[3000] card px-4 py-2.5 label text-sbgreen no-print" style="display:none"></div>
+
+<script>
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme');
+  const next=cur==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',next);
+  document.getElementById('themeTxt').textContent = next==='dark'?'◑ Light':'◐ Dark';
+  try{ localStorage.setItem('reihub_guide_theme', next); }catch(e){}
+}
+let tT;
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.style.display='block'; clearTimeout(tT); tT=setTimeout(()=>t.style.display='none',1800); }
+
+/* interactive checklist */
+const CHECKS=[
+  'Opened the app (free version works instantly)',
+  'Sample deals load — or added my own',
+  'My work saves after a reload',
+  'Exported a backup of my data',
+  'Pasted my license key (Live Data users)',
+  'Live Data status shows "on" — Analyzer &amp; Portfolio unlocked',
+];
+function renderChecks(){
+  const state = (()=>{ try{ return JSON.parse(localStorage.getItem('reihub_guide_checks')||'[]'); }catch(e){ return []; } })();
+  document.getElementById('checks').innerHTML = CHECKS.map((c,i)=>`
+    <label class="flex items-center gap-3 text-[13px] cursor-pointer">
+      <input type="checkbox" ${state.includes(i)?'checked':''} onchange="toggleCheck(${i})" style="width:17px;height:17px;accent-color:var(--accent)">
+      <span class="${state.includes(i)?'line-through muted':'text-ink'}">${c}</span>
+    </label>`).join('');
+  const pc=Math.round(state.length/CHECKS.length*100);
+  document.getElementById('checkBar').style.width=pc+'%';
+  document.getElementById('checkCount').textContent=state.length;
+}
+function toggleCheck(i){
+  let s=[]; try{ s=JSON.parse(localStorage.getItem('reihub_guide_checks')||'[]'); }catch(e){}
+  s = s.includes(i) ? s.filter(x=>x!==i) : [...s,i];
+  localStorage.setItem('reihub_guide_checks', JSON.stringify(s));
+  renderChecks();
+}
+
+/* TOC scroll-spy */
+function initSpy(){
+  const links=[...document.querySelectorAll('#toc a')];
+  const map={}; links.forEach(a=>map[a.getAttribute('href').slice(1)]=a);
+  const obs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.remove('active')); const a=map[e.target.id]; if(a)a.classList.add('active'); } });
+  },{rootMargin:'-80px 0px -70% 0px'});
+  document.querySelectorAll('section[id]').forEach(s=>{ if(map[s.id]) obs.observe(s); });
+}
+
+(function init(){
+  try{ const t=localStorage.getItem('reihub_guide_theme'); if(t){ document.documentElement.setAttribute('data-theme',t); document.getElementById('themeTxt').textContent = t==='dark'?'◑ Light':'◐ Dark'; } }catch(e){}
+  renderChecks(); initSpy();
+})();
+</script>
+</body>
+</html>
