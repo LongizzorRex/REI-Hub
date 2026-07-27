@@ -4,9 +4,8 @@
 
 Open the app, and you're working immediately with a full set of sample deals. Add your own listings, leads, rehab jobs, and properties — everything you type is saved right in your browser, on your device.
 
-> 🔗 **Live app:** `https://longizzorrex.github.io/REI-Hub/`
-> 📖 **Setup & Features Guide:** `https://longizzorrex.github.io/REI-Hub/guide.html`
-
+> 🔗 **Live app:** https://longizzorrex.github.io/REI-Hub/
+> 📖 **Setup & Features Guide:** https://longizzorrex.github.io/REI-Hub/guide.html
 ---
 
 ## What you get — free
@@ -25,13 +24,16 @@ The free version organizes your entire deal workflow using numbers you enter you
 
 Upgrade to the **Live Data** subscription to unlock:
 
+- **Deal Finder** — live for-sale listings in up to 3 markets, every one auto-underwritten and **ranked best-first** against your saved buy box. One click loads any listing into the Analyzer, prefilled. List or map view.
 - **Analyzer** — the 0–100 Worth-Buying score and full underwriting breakdown
 - **Portfolio tracker** — owned-property KPIs with equity and cashflow charts
-- **Live mortgage rates**, **real listings**, **parcel / APN / tax records**, and **market trends** — filled in and refreshed automatically, across up to 3 devices
+- **Live mortgage rates**, **parcel / APN / tax records**, and **market trends** — filled in and refreshed automatically, across up to 3 devices
 
-Live Data is a fully hosted service — paste one key and it works. Nothing to set up, no keys to manage, nothing to maintain.
+Stop typing listings in one at a time. Deal Finder answers the only question that matters — *which of these actually cash flow?*
 
-**→ Subscribe: `https://planex.lemonsqueezy.com/checkout/buy/aba36df8-d6dc-4bee-b2f3-6df57e78b894`**
+Rates, market trends, and parcel records need no setup at all: paste your license key and they work. Live listings use a **free data key that you create** (about two minutes, no credit card) — that's what keeps the subscription priced without a data markup. The app walks you through it.
+
+**→ [Subscribe to Live Data](https://planex.lemonsqueezy.com/checkout/buy/aba36df8-d6dc-4bee-b2f3-6df57e78b894)**
 
 ---
 
@@ -50,6 +52,8 @@ Everything you enter — properties, leads, budgets, notes — stays **on your o
 ## Data attribution
 
 Mortgage-rate data source: **FRED, Federal Reserve Bank of St. Louis.** Not endorsed by or affiliated with the Federal Reserve.
+
+Listing and rent data via **RentCast**. Rent and tax figures shown in Deal Finder are screening estimates, not appraisals — verify before making an offer.
 
 ---
 
